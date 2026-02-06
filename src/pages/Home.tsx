@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Routine } from '../types';
 import { loadRoutine, saveRoutine } from '../utils/storage';
 import { useEffect, useState, useRef } from 'react';
 import { parseCSV } from '../utils/csvParser';
 
 export const Home = () => {
+  const navigate = useNavigate();
   const [routine, setRoutine] = useState<Routine | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -64,8 +65,8 @@ export const Home = () => {
           )}
         </div>
 
-        {/* Botón de importar CSV */}
-        <div className="mb-8">
+        {/* Botones de acción */}
+        <div className="mb-8 space-y-3">
           <label className="block w-full">
             <input
               ref={fileInputRef}
@@ -83,6 +84,18 @@ export const Home = () => {
               </div>
             </div>
           </label>
+
+          {routine && routine.days.length > 0 && (
+            <button
+              onClick={() => navigate('/edit-routine')}
+              className="w-full px-6 py-4 bg-green-medium text-white rounded-lg text-center cursor-pointer hover:bg-green-dark transition-all active:scale-[0.98] font-semibold flex items-center justify-center gap-2"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+              <span>Editar Rutina</span>
+            </button>
+          )}
         </div>
 
         {/* Lista de días */}
