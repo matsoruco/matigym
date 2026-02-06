@@ -1,7 +1,7 @@
 {
   "name": "gymv2",
   "version": "1.0.0",
-  "description": "Workout Tracker App - Rutina 4 Días",
+  "description": "Mati Gym - Workout Tracker App",
   "type": "module",
   "scripts": {
     "dev": "vite",

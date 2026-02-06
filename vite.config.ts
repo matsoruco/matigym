@@ -9,9 +9,9 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
       manifest: {
-        name: 'Gym Tracker - Rutina 4 Días',
-        short_name: 'Gym Tracker',
-        description: 'Seguimiento de entrenamiento para rutina de 4 días',
+        name: 'Mati Gym',
+        short_name: 'Mati Gym',
+        description: 'Seguimiento de entrenamiento personalizado',
         theme_color: '#1e40af',
         background_color: '#ffffff',
         display: 'standalone',

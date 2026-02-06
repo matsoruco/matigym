@@ -59,9 +59,9 @@ export const Home = () => {
               </svg>
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-green-darkest mb-2">Gym Tracker</h1>
+          <h1 className="text-3xl font-bold text-green-darkest mb-2">Mati Gym</h1>
           {routine && numDays > 0 && (
-            <h2 className="text-base font-semibold text-green-medium">Rutina {numDays} Días</h2>
+            <h2 className="text-base font-semibold text-green-medium">Rutina</h2>
           )}
         </div>
 
