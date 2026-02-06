@@ -104,7 +104,7 @@ const parseSetsReps = (setsReps: string): Set[] => {
   return sets;
 };
 
-const detectExerciseType = (name: string, setsReps: string): ExerciseType => {
+const detectExerciseType = (name: string): ExerciseType => {
   const nameLower = name.toLowerCase();
   
   if (nameLower.includes('tabata')) return 'Tabata';
@@ -182,7 +182,7 @@ export const parseCSV = (csvContent: string): Routine => {
       exercisesByDay[day] = [];
     }
     
-    const type = detectExerciseType(exerciseName, setsReps);
+    const type = detectExerciseType(exerciseName);
     const timer = extractTimer(setsReps);
     const sets = parseSetsReps(setsReps);
     

@@ -2,10 +2,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Routine, Exercise } from '../types';
 import { loadRoutine, saveRoutine, getPreviousWeights, resetDay, saveDaySession } from '../utils/storage';
-import { exportWorkout } from '../utils/export';
 import { ExerciseCard } from '../components/ExerciseCard';
 import { RestTimer } from '../components/RestTimer';
 import { Confetti } from '../components/Confetti';
+import { ExportModal } from '../components/ExportModal';
 import { useTheme } from '../contexts/ThemeContext';
 
 const REST_SECONDS = 90; // 1.5 minutos de descanso por defecto
@@ -59,6 +59,7 @@ export const WorkoutView = () => {
   const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
   const [exerciseGroups, setExerciseGroups] = useState<Exercise[][]>([]);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
   const { isDarkMode, toggleDarkMode } = useTheme();
 
   useEffect(() => {
@@ -99,32 +100,6 @@ export const WorkoutView = () => {
     setRoutine(stored);
   }, [day, navigate]);
 
-  const handleToggleComplete = (exerciseId: string) => {
-    if (!routine) return;
-
-    const updatedRoutine = { ...routine };
-    const dayData = updatedRoutine.days.find((d) => d.day === day);
-    if (!dayData) return;
-
-    const exercise = dayData.exercises.find((e) => e.id === exerciseId);
-    if (exercise) {
-      exercise.completed = !exercise.completed;
-      
-      // Si todas las series están completas, marcar ejercicio como completado
-      if (exercise.sets && exercise.sets.every(s => s.completed)) {
-        exercise.completed = true;
-      }
-      
-      saveRoutine(updatedRoutine);
-      
-      // Guardar sesión cuando se completa un ejercicio (para historial)
-      if (exercise.completed) {
-        saveDaySession(day, updatedRoutine);
-      }
-      
-      setRoutine(updatedRoutine);
-    }
-  };
 
   const handleToggleSetComplete = (exerciseId: string, setIndex: number) => {
     if (!routine) return;
@@ -263,14 +238,10 @@ export const WorkoutView = () => {
       // Mostrar confetti
       setShowConfetti(true);
       
-      // Exportar entrenamiento
-      exportWorkout(day, updatedRoutine);
-      
-      // Mostrar mensaje y volver a Home después de animación
+      // Mostrar modal de exportación después de un breve delay
       setTimeout(() => {
         setShowConfetti(false);
-        alert(`¡Día ${day} completado! 🎉\nEl entrenamiento se ha exportado.`);
-        navigate('/');
+        setShowExportModal(true);
       }, 2000);
     }
   };
@@ -296,8 +267,9 @@ export const WorkoutView = () => {
   }, 0);
 
   return (
-    <div className="min-h-screen bg-green-pale pb-32">
-      <div className="bg-white border-b-2 border-green-light sticky top-0 z-40 shadow-sm">
+    <div className="min-h-screen bg-green-pale dark:bg-gray-900 pb-32 transition-colors">
+      {showConfetti && <Confetti />}
+      <div className="bg-white dark:bg-gray-800 border-b-2 border-green-light dark:border-green-dark sticky top-0 z-40 shadow-sm">
         <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
           <button
             onClick={() => navigate('/')}
@@ -312,14 +284,31 @@ export const WorkoutView = () => {
             <h1 className="text-xl font-bold text-green-darkest">Dia {day}</h1>
             <p className="text-xs font-medium text-green-mediumLight uppercase tracking-wide">{dayData.focus}</p>
           </div>
-          <button
-            onClick={handleResetDay}
-            className="text-green-mediumLight text-sm active:opacity-70 hover:text-green-medium transition-colors p-2 hover:bg-green-lightest rounded-lg"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggleDarkMode}
+              className="text-green-mediumLight text-sm active:opacity-70 hover:text-green-medium transition-colors p-2 hover:bg-green-lightest rounded-lg"
+              aria-label="Toggle dark mode"
+            >
+              {isDarkMode ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              )}
+            </button>
+            <button
+              onClick={handleResetDay}
+              className="text-green-mediumLight text-sm active:opacity-70 hover:text-green-medium transition-colors p-2 hover:bg-green-lightest rounded-lg"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+            </button>
+          </div>
         </div>
         <div className="max-w-2xl mx-auto px-4 pb-4">
           <div className="flex gap-8 justify-center text-sm">
@@ -354,8 +343,6 @@ export const WorkoutView = () => {
                 <ExerciseCard
                   exercise={exercise}
                   exerciseIndex={exerciseIndex}
-                  totalExercises={currentGroup.length}
-                  onToggleComplete={handleToggleComplete}
                   onToggleSetComplete={handleToggleSetComplete}
                   onUpdateSetWeight={handleUpdateSetWeight}
                   onUpdateNotes={handleUpdateNotes}
@@ -388,6 +375,20 @@ export const WorkoutView = () => {
           seconds={REST_SECONDS} 
           onComplete={handleRestComplete}
           onClose={handleCloseRestTimer}
+        />
+      )}
+
+      {showExportModal && routine && (
+        <ExportModal
+          day={day}
+          routine={routine}
+          onClose={() => {
+            setShowExportModal(false);
+            setTimeout(() => {
+              alert(`¡Día ${day} completado! 🎉`);
+              navigate('/');
+            }, 300);
+          }}
         />
       )}
     </div>

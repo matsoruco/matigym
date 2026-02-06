@@ -3,12 +3,10 @@ import { Routine } from '../types';
 import { loadRoutine, saveRoutine } from '../utils/storage';
 import { useEffect, useState, useRef } from 'react';
 import { parseCSV } from '../utils/csvParser';
-import { useTheme } from '../contexts/ThemeContext';
 
 export const Home = () => {
   const [routine, setRoutine] = useState<Routine | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { isDarkMode, toggleDarkMode } = useTheme();
 
   useEffect(() => {
     const stored = loadRoutine();

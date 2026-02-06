@@ -6,8 +6,6 @@ import { useState } from 'react';
 interface ExerciseCardProps {
   exercise: Exercise;
   exerciseIndex?: number;
-  totalExercises?: number;
-  onToggleComplete: (exerciseId: string) => void;
   onToggleSetComplete: (exerciseId: string, setIndex: number) => void;
   onUpdateSetWeight: (exerciseId: string, setIndex: number, weight: string) => void;
   onUpdateNotes: (exerciseId: string, notes: string) => void;
@@ -20,8 +18,6 @@ interface ExerciseCardProps {
 export const ExerciseCard = ({
   exercise,
   exerciseIndex = 0,
-  totalExercises = 1,
-  onToggleComplete,
   onToggleSetComplete,
   onUpdateSetWeight,
   onUpdateNotes,
