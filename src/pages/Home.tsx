@@ -92,20 +92,20 @@ export const Home = () => {
               <Link
                 key={day.day}
                 to={`/workout/${day.day}`}
-                className="block bg-white dark:bg-gray-800 rounded-lg p-4 hover:bg-green-lightest dark:hover:bg-gray-700 transition-all active:scale-[0.98] border-2 border-green-light dark:border-green-dark hover:border-green-medium dark:hover:border-green-light shadow-sm hover:shadow-md animate-slide-in"
+                className="block bg-white rounded-lg p-4 hover:bg-green-lightest transition-all active:scale-[0.98] border-2 border-green-light hover:border-green-medium shadow-sm hover:shadow-md animate-slide-in"
                 style={{ animationDelay: `${(day.day - 1) * 0.1}s` }}
               >
                 <div className="flex items-center gap-4">
                   {/* Badge circular */}
-                  <div className="w-12 h-12 bg-green-medium dark:bg-green-dark rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
+                  <div className="w-12 h-12 bg-green-medium rounded-full flex items-center justify-center flex-shrink-0 shadow-md">
                     <span className="text-white font-bold text-xl">{day.day}</span>
                   </div>
                   
                   {/* Contenido */}
                   <div className="flex-1">
-                    <div className="font-bold text-green-darkest dark:text-white mb-1 text-lg">Dia {day.day}</div>
-                    <div className="text-sm font-medium text-green-medium dark:text-green-light mb-2">{day.focus}</div>
-                    <div className="flex items-center gap-1 text-xs font-medium text-green-mediumLight dark:text-green-mediumLight bg-green-lightest dark:bg-green-dark px-2 py-1 rounded-full inline-flex">
+                    <div className="font-bold text-green-darkest mb-1 text-lg">Dia {day.day}</div>
+                    <div className="text-sm font-medium text-green-medium mb-2">{day.focus}</div>
+                    <div className="flex items-center gap-1 text-xs font-medium text-green-mediumLight bg-green-lightest px-2 py-1 rounded-full inline-flex">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                       </svg>
@@ -114,7 +114,7 @@ export const Home = () => {
                   </div>
                   
                   {/* Flecha */}
-                  <div className="text-green-medium dark:text-green-light">
+                  <div className="text-green-medium">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                     </svg>

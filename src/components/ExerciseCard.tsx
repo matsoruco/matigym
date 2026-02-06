@@ -39,17 +39,17 @@ export const ExerciseCard = ({
   const canGoPrevious = exerciseIndex > 0 || (onPrevious !== undefined);
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 mb-4 shadow-lg border-2 border-green-lightest dark:border-green-dark transition-all hover:shadow-xl">
+    <div className="bg-whitebg-gray-800 rounded-xl p-6 mb-4 shadow-lg border-2 border-green-lightestborder-green-dark transition-all hover:shadow-xl">
       {/* Título del ejercicio */}
-      <div className="mb-5 pb-4 border-b-2 border-green-lightest dark:border-green-dark">
-        <h2 className="text-2xl font-bold text-green-darkest dark:text-white mb-2">{exercise.name}</h2>
+      <div className="mb-5 pb-4 border-b-2 border-green-lightestborder-green-dark">
+        <h2 className="text-2xl font-bold text-green-darkesttext-white mb-2">{exercise.name}</h2>
         
         {/* Información anterior */}
-        <div className="text-sm font-semibold text-green-medium dark:text-green-light mb-2">
+        <div className="text-sm font-semibold text-green-mediumtext-green-light mb-2">
           {exercise.sets_reps}
         </div>
         {exercise.previousWeights && exercise.previousWeights.length > 0 && (
-          <div className="text-sm font-medium text-green-mediumLight dark:text-green-mediumLight bg-green-lightest dark:bg-green-dark px-3 py-1.5 rounded-lg inline-block border border-green-light dark:border-green-medium">
+          <div className="text-sm font-medium text-green-mediumLighttext-green-mediumLight bg-green-lightestbg-green-dark px-3 py-1.5 rounded-lg inline-block border border-green-lightborder-green-medium">
             Anterior: {exercise.previousWeights.join('kg, ')}kg
           </div>
         )}
@@ -111,8 +111,8 @@ export const ExerciseCard = ({
               key={index}
               className={`flex items-center gap-3 p-4 rounded-lg border-2 transition-all ${
                 set.completed 
-                  ? 'border-green-medium dark:border-green-light bg-green-lightest dark:bg-green-dark shadow-sm' 
-                  : 'border-green-light dark:border-green-medium bg-green-pale dark:bg-gray-700 hover:border-green-mediumLight dark:hover:border-green-light'
+                  ? 'border-green-mediumborder-green-light bg-green-lightestbg-green-dark shadow-sm' 
+                  : 'border-green-lightborder-green-medium bg-green-palebg-gray-700 hover:border-green-mediumLighthover:border-green-light'
               }`}
             >
               <button
@@ -131,8 +131,8 @@ export const ExerciseCard = ({
                 }}
                 className={`w-12 h-12 rounded-full border-2 flex items-center justify-center text-base font-bold flex-shrink-0 transition-all shadow-sm ${
                   set.completed
-                    ? 'bg-green-medium dark:bg-green-light border-green-dark dark:border-green-medium text-white shadow-md'
-                    : 'bg-white dark:bg-gray-600 border-green-mediumLight dark:border-green-medium text-green-mediumLight dark:text-green-light hover:border-green-medium dark:hover:border-green-light hover:text-green-medium dark:hover:text-green-light hover:bg-green-lightest dark:hover:bg-gray-500 hover:scale-105'
+                    ? 'bg-green-mediumbg-green-light border-green-darkborder-green-medium text-white shadow-md'
+                    : 'bg-whitebg-gray-600 border-green-mediumLightborder-green-medium text-green-mediumLighttext-green-light hover:border-green-mediumhover:border-green-light hover:text-green-mediumhover:text-green-light hover:bg-green-lightesthover:bg-gray-500 hover:scale-105'
                 } active:scale-95`}
               >
                 {set.completed ? '✓' : index + 1}
@@ -141,16 +141,16 @@ export const ExerciseCard = ({
               <div className="flex-1">
                 {set.reps > 0 ? (
                   <>
-                    <div className="text-lg font-bold text-green-darkest dark:text-white">{set.reps} reps</div>
-                    <div className="text-xs font-medium text-green-mediumLight dark:text-green-mediumLight uppercase tracking-wide">Serie {index + 1}</div>
+                    <div className="text-lg font-bold text-green-darkesttext-white">{set.reps} reps</div>
+                    <div className="text-xs font-medium text-green-mediumLighttext-green-mediumLight uppercase tracking-wide">Serie {index + 1}</div>
                   </>
                 ) : (
                   <>
-                    <div className="text-sm font-medium text-green-medium dark:text-green-light">
+                    <div className="text-sm font-medium text-green-mediumtext-green-light">
                       {exercise.type === 'Tabata' ? 'Ronda' : 'Serie ' + (index + 1)}
                     </div>
                     {exercise.sets_reps && (exercise.sets_reps.includes('min') || exercise.sets_reps.includes('"')) && (
-                      <div className="text-xs text-green-mediumLight dark:text-green-mediumLight">{exercise.sets_reps}</div>
+                      <div className="text-xs text-green-mediumLighttext-green-mediumLight">{exercise.sets_reps}</div>
                     )}
                   </>
                 )}
@@ -180,9 +180,9 @@ export const ExerciseCard = ({
                     }}
                     className={`w-20 px-3 py-2.5 rounded-lg text-base text-center font-bold transition-all ${
                       set.weight 
-                        ? 'bg-green-medium dark:bg-green-light text-white border-2 border-green-dark dark:border-green-medium shadow-md' 
-                        : 'bg-white dark:bg-gray-600 text-green-medium dark:text-green-light border-2 border-green-mediumLight dark:border-green-medium hover:border-green-medium dark:hover:border-green-light focus:border-green-medium dark:focus:border-green-light focus:bg-green-lightest dark:focus:bg-gray-500'
-                    } focus:outline-none focus:ring-2 focus:ring-green-medium dark:focus:ring-green-light focus:ring-offset-2 dark:focus:ring-offset-gray-800`}
+                        ? 'bg-green-mediumbg-green-light text-white border-2 border-green-darkborder-green-medium shadow-md' 
+                        : 'bg-whitebg-gray-600 text-green-mediumtext-green-light border-2 border-green-mediumLightborder-green-medium hover:border-green-mediumhover:border-green-light focus:border-green-mediumfocus:border-green-light focus:bg-green-lightestfocus:bg-gray-500'
+                    } focus:outline-none focus:ring-2 focus:ring-green-mediumfocus:ring-green-light focus:ring-offset-2focus:ring-offset-gray-800`}
                     onClick={(e) => e.stopPropagation()}
                   />
                   
@@ -199,7 +199,7 @@ export const ExerciseCard = ({
           placeholder="Agregar notas..."
           value={notesInput}
           onChange={(e) => handleNotesChange(e.target.value)}
-          className="w-full px-4 py-3 border-2 border-green-light dark:border-green-medium rounded-lg text-sm font-medium text-green-darkest dark:text-white placeholder-green-mediumLight dark:placeholder-green-mediumLight focus:outline-none focus:ring-2 focus:ring-green-medium dark:focus:ring-green-light focus:border-green-medium dark:focus:border-green-light focus:bg-green-lightest dark:focus:bg-gray-700 resize-none bg-white dark:bg-gray-700 transition-all"
+          className="w-full px-4 py-3 border-2 border-green-lightborder-green-medium rounded-lg text-sm font-medium text-green-darkesttext-white placeholder-green-mediumLightplaceholder-green-mediumLight focus:outline-none focus:ring-2 focus:ring-green-mediumfocus:ring-green-light focus:border-green-mediumfocus:border-green-light focus:bg-green-lightestfocus:bg-gray-700 resize-none bg-whitebg-gray-700 transition-all"
           rows={2}
         />
       </div>
@@ -212,15 +212,15 @@ export const ExerciseCard = ({
             disabled={!canGoPrevious}
           className={`flex-1 px-4 py-3 rounded-lg text-sm font-semibold transition-all shadow-sm ${
             canGoPrevious
-              ? 'bg-white dark:bg-gray-700 border-2 border-green-mediumLight dark:border-green-medium text-green-medium dark:text-green-light hover:bg-green-lightest dark:hover:bg-gray-600 hover:border-green-medium dark:hover:border-green-light active:bg-green-light dark:active:bg-gray-500 active:scale-95'
-              : 'bg-green-lightest dark:bg-gray-800 border-2 border-green-light dark:border-green-dark text-green-mediumLight dark:text-green-mediumLight cursor-not-allowed'
+              ? 'bg-whitebg-gray-700 border-2 border-green-mediumLightborder-green-medium text-green-mediumtext-green-light hover:bg-green-lightesthover:bg-gray-600 hover:border-green-mediumhover:border-green-light active:bg-green-lightactive:bg-gray-500 active:scale-95'
+              : 'bg-green-lightestbg-gray-800 border-2 border-green-lightborder-green-dark text-green-mediumLighttext-green-mediumLight cursor-not-allowed'
           }`}
           >
             Anterior
           </button>
           <button
             onClick={onNext}
-            className="flex-1 px-4 py-3 bg-green-medium dark:bg-green-dark text-white rounded-lg text-sm font-semibold active:bg-green-dark dark:active:bg-green-darkest hover:bg-green-dark dark:hover:bg-green-darkest transition-all shadow-md hover:shadow-lg active:scale-95 hover:scale-105"
+            className="flex-1 px-4 py-3 bg-green-mediumbg-green-dark text-white rounded-lg text-sm font-semibold active:bg-green-darkactive:bg-green-darkest hover:bg-green-darkhover:bg-green-darkest transition-all shadow-md hover:shadow-lg active:scale-95 hover:scale-105"
           >
             {isLastExercise ? '✓ Completar Día' : 'Siguiente →'}
           </button>

@@ -6,7 +6,6 @@ import { ExerciseCard } from '../components/ExerciseCard';
 import { RestTimer } from '../components/RestTimer';
 import { Confetti } from '../components/Confetti';
 import { ExportModal } from '../components/ExportModal';
-import { useTheme } from '../contexts/ThemeContext';
 
 const REST_SECONDS = 90; // 1.5 minutos de descanso por defecto
 
@@ -60,7 +59,6 @@ export const WorkoutView = () => {
   const [exerciseGroups, setExerciseGroups] = useState<Exercise[][]>([]);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
-  const { isDarkMode, toggleDarkMode } = useTheme();
 
   useEffect(() => {
     const stored = loadRoutine();
@@ -267,58 +265,52 @@ export const WorkoutView = () => {
   }, 0);
 
   return (
-    <div className="min-h-screen bg-green-pale dark:bg-gray-900 pb-32 transition-colors">
+    <div className="min-h-screen bg-green-pale pb-32">
       {showConfetti && <Confetti />}
-      <div className="bg-white dark:bg-gray-800 border-b-2 border-green-light dark:border-green-dark sticky top-0 z-40 shadow-sm">
-        <div className="max-w-2xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div className="bg-white border-b-2 border-green-light sticky top-0 z-40 shadow-sm">
+        <div className="max-w-2xl mx-auto px-3 py-2 flex items-center justify-between">
           <button
             onClick={() => navigate('/')}
-            className="text-green-medium font-semibold text-sm active:opacity-70 hover:text-green-dark transition-colors flex items-center gap-1"
+            className="text-green-medium font-semibold text-xs active:opacity-70 hover:text-green-dark transition-colors flex items-center gap-1"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
             </svg>
             Inicio
           </button>
-          <div className="text-center">
-            <h1 className="text-xl font-bold text-green-darkest">Dia {day}</h1>
-            <p className="text-xs font-medium text-green-mediumLight uppercase tracking-wide">{dayData.focus}</p>
+          <div className="text-center flex-1">
+            <h1 className="text-base font-bold text-green-darkest">Dia {day}</h1>
+            <p className="text-[10px] font-medium text-green-mediumLight uppercase tracking-wide">{dayData.focus}</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <button
-              onClick={toggleDarkMode}
-              className="text-green-mediumLight text-sm active:opacity-70 hover:text-green-medium transition-colors p-2 hover:bg-green-lightest rounded-lg"
-              aria-label="Toggle dark mode"
+              onClick={handleStartRest}
+              className="text-green-mediumLight text-xs active:opacity-70 hover:text-green-medium transition-colors p-1.5 hover:bg-green-lightest rounded-lg"
+              aria-label="Descanso"
             >
-              {isDarkMode ? (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              ) : (
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
-              )}
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
             </button>
             <button
               onClick={handleResetDay}
-              className="text-green-mediumLight text-sm active:opacity-70 hover:text-green-medium transition-colors p-2 hover:bg-green-lightest rounded-lg"
+              className="text-green-mediumLight text-xs active:opacity-70 hover:text-green-medium transition-colors p-1.5 hover:bg-green-lightest rounded-lg"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
             </button>
           </div>
         </div>
-        <div className="max-w-2xl mx-auto px-4 pb-4">
-          <div className="flex gap-8 justify-center text-sm">
-            <div className="bg-green-lightest dark:bg-green-dark px-4 py-2 rounded-lg border border-green-light dark:border-green-medium animate-fade-in">
-              <span className="text-green-medium dark:text-green-light font-bold text-base">{completedCount}</span>
-              <span className="text-green-mediumLight dark:text-green-mediumLight font-medium">/{totalCount} ejercicios</span>
+        <div className="max-w-2xl mx-auto px-3 pb-2">
+          <div className="flex gap-4 justify-center text-xs">
+            <div className="bg-green-lightest px-3 py-1.5 rounded-lg border border-green-light animate-fade-in">
+              <span className="text-green-medium font-bold text-sm">{completedCount}</span>
+              <span className="text-green-mediumLight font-medium">/{totalCount} ejercicios</span>
             </div>
-            <div className="bg-green-lightest dark:bg-green-dark px-4 py-2 rounded-lg border border-green-light dark:border-green-medium animate-fade-in">
-              <span className="text-green-medium dark:text-green-light font-bold text-base">{completedSets}</span>
-              <span className="text-green-mediumLight dark:text-green-mediumLight font-medium">/{totalSets} series</span>
+            <div className="bg-green-lightest px-3 py-1.5 rounded-lg border border-green-light animate-fade-in">
+              <span className="text-green-medium font-bold text-sm">{completedSets}</span>
+              <span className="text-green-mediumLight font-medium">/{totalSets} series</span>
             </div>
           </div>
         </div>
@@ -328,7 +320,7 @@ export const WorkoutView = () => {
         {currentGroup.length > 0 && (
           <>
             {currentGroup.length > 1 && (
-              <div className="mb-4 px-4 py-3 bg-green-medium dark:bg-green-dark border-2 border-green-dark dark:border-green-darkest rounded-lg shadow-md animate-slide-in">
+              <div className="mb-4 px-4 py-3 bg-green-medium border-2 border-green-dark rounded-lg shadow-md animate-slide-in">
                 <p className="text-sm font-bold text-white uppercase tracking-wide">
                   {currentGroup[0].type === 'Circuit' && 'CIRCUITO'}
                   {currentGroup[0].type === 'Biserie' && 'BISERIE'}
@@ -357,18 +349,6 @@ export const WorkoutView = () => {
         )}
       </div>
 
-      {/* Botón flotante Descanso */}
-      <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-30">
-        <button
-          onClick={handleStartRest}
-          className="px-6 py-3.5 bg-green-medium dark:bg-green-dark text-white rounded-xl font-semibold text-sm shadow-xl active:bg-green-dark dark:active:bg-green-darkest hover:bg-green-dark dark:hover:bg-green-darkest transition-all hover:shadow-2xl active:scale-95 flex items-center gap-2 border-2 border-green-dark dark:border-green-darkest hover:scale-105"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          Descanso
-        </button>
-      </div>
 
       {showRestTimer && (
         <RestTimer 
