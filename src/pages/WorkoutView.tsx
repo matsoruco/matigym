@@ -6,6 +6,7 @@ import { ExerciseCard } from '../components/ExerciseCard';
 import { RestTimer } from '../components/RestTimer';
 import { Confetti } from '../components/Confetti';
 import { ExportModal } from '../components/ExportModal';
+import { Popup } from '../components/Popup';
 
 const REST_SECONDS = 90; // 1.5 minutos de descanso por defecto
 
@@ -59,6 +60,8 @@ export const WorkoutView = () => {
   const [exerciseGroups, setExerciseGroups] = useState<Exercise[][]>([]);
   const [showConfetti, setShowConfetti] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
 
   useEffect(() => {
     const stored = loadRoutine();
@@ -358,16 +361,26 @@ export const WorkoutView = () => {
         />
       )}
 
+      <Popup
+        isOpen={showPopup}
+        onClose={() => {
+          setShowPopup(false);
+          navigate('/');
+        }}
+        title="¡Día Completado!"
+        type="success"
+      >
+        {popupMessage}
+      </Popup>
+
       {showExportModal && routine && (
         <ExportModal
           day={day}
           routine={routine}
           onClose={() => {
             setShowExportModal(false);
-            setTimeout(() => {
-              alert(`¡Día ${day} completado! 🎉`);
-              navigate('/');
-            }, 300);
+            setPopupMessage(`¡Día ${day} completado! 🎉`);
+            setShowPopup(true);
           }}
         />
       )}

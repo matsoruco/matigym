@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Routine, Exercise, Set } from '../types';
 import { loadRoutine, saveRoutine } from '../utils/storage';
 import { exportRoutineCSV } from '../utils/exportRoutine';
+import { Popup } from '../components/Popup';
 
 type TimeUnit = 'reps' | 'minutes' | 'seconds';
 
@@ -16,12 +17,15 @@ export const EditRoutine = () => {
   const [routine, setRoutine] = useState<Routine | null>(null);
   const [expandedDay, setExpandedDay] = useState<number | null>(null);
   const [expandedExercise, setExpandedExercise] = useState<string | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     const stored = loadRoutine();
     if (!stored) {
-      alert('No hay rutina cargada');
-      navigate('/');
+      setShowPopup(true);
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
       return;
     }
     setRoutine(stored);
@@ -155,6 +159,18 @@ export const EditRoutine = () => {
 
   return (
     <div className="min-h-screen bg-white pb-24">
+      <Popup
+        isOpen={showPopup}
+        onClose={() => {
+          setShowPopup(false);
+          navigate('/');
+        }}
+        title="Información"
+        type="info"
+      >
+        No hay rutina cargada. Redirigiendo a inicio...
+      </Popup>
+
       <div className="bg-white border-b border-green-light sticky top-0 z-40 shadow-sm">
         <div className="mx-auto px-3 py-2 flex items-center justify-between">
           <button
