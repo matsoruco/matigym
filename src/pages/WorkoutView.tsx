@@ -265,63 +265,63 @@ export const WorkoutView = () => {
   }, 0);
 
   return (
-    <div className="min-h-screen bg-green-pale pb-32">
+    <div className="min-h-screen bg-white pb-24">
       {showConfetti && <Confetti />}
-      <div className="bg-white border-b-2 border-green-light sticky top-0 z-40 shadow-sm">
-        <div className="max-w-2xl mx-auto px-3 py-2 flex items-center justify-between">
+      <div className="bg-white border-b border-green-light sticky top-0 z-40 shadow-sm">
+        <div className="mx-auto px-3 py-1.5 flex items-center justify-between">
           <button
             onClick={() => navigate('/')}
-            className="text-green-medium font-semibold text-xs active:opacity-70 hover:text-green-dark transition-colors flex items-center gap-1"
+            className="text-green-medium font-semibold text-[11px] active:opacity-70 hover:text-green-dark transition-colors flex items-center gap-0.5"
           >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
             </svg>
-            Inicio
+            <span className="hidden sm:inline">Inicio</span>
           </button>
-          <div className="text-center flex-1">
-            <h1 className="text-base font-bold text-green-darkest">Dia {day}</h1>
-            <p className="text-[10px] font-medium text-green-mediumLight uppercase tracking-wide">{dayData.focus}</p>
+          <div className="text-center flex-1 px-2">
+            <h1 className="text-sm font-bold text-green-darkest">Dia {day}</h1>
+            <p className="text-[9px] font-medium text-green-mediumLight uppercase tracking-wide leading-tight">{dayData.focus}</p>
           </div>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1">
             <button
               onClick={handleStartRest}
-              className="text-green-mediumLight text-xs active:opacity-70 hover:text-green-medium transition-colors p-1.5 hover:bg-green-lightest rounded-lg"
+              className="text-green-mediumLight text-[10px] active:opacity-70 hover:text-green-medium transition-colors p-1 hover:bg-green-lightest rounded"
               aria-label="Descanso"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </button>
             <button
               onClick={handleResetDay}
-              className="text-green-mediumLight text-xs active:opacity-70 hover:text-green-medium transition-colors p-1.5 hover:bg-green-lightest rounded-lg"
+              className="text-green-mediumLight text-[10px] active:opacity-70 hover:text-green-medium transition-colors p-1 hover:bg-green-lightest rounded"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
             </button>
           </div>
         </div>
-        <div className="max-w-2xl mx-auto px-3 pb-2">
-          <div className="flex gap-4 justify-center text-xs">
-            <div className="bg-green-lightest px-3 py-1.5 rounded-lg border border-green-light animate-fade-in">
-              <span className="text-green-medium font-bold text-sm">{completedCount}</span>
-              <span className="text-green-mediumLight font-medium">/{totalCount} ejercicios</span>
+        <div className="mx-auto px-3 pb-1.5">
+          <div className="flex gap-2 justify-center text-[10px]">
+            <div className="bg-green-lightest px-2 py-1 rounded border border-green-light">
+              <span className="text-green-medium font-bold text-xs">{completedCount}</span>
+              <span className="text-green-mediumLight font-medium">/{totalCount}</span>
             </div>
-            <div className="bg-green-lightest px-3 py-1.5 rounded-lg border border-green-light animate-fade-in">
-              <span className="text-green-medium font-bold text-sm">{completedSets}</span>
-              <span className="text-green-mediumLight font-medium">/{totalSets} series</span>
+            <div className="bg-green-lightest px-2 py-1 rounded border border-green-light">
+              <span className="text-green-medium font-bold text-xs">{completedSets}</span>
+              <span className="text-green-mediumLight font-medium">/{totalSets}</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto px-4 py-6">
+      <div className="mx-auto px-3 py-3">
         {currentGroup.length > 0 && (
           <>
             {currentGroup.length > 1 && (
-              <div className="mb-4 px-4 py-3 bg-green-medium border-2 border-green-dark rounded-lg shadow-md animate-slide-in">
-                <p className="text-sm font-bold text-white uppercase tracking-wide">
+              <div className="mb-2 px-2.5 py-1.5 bg-green-medium border border-green-dark rounded animate-slide-in">
+                <p className="text-xs font-bold text-white uppercase tracking-wide">
                   {currentGroup[0].type === 'Circuit' && 'CIRCUITO'}
                   {currentGroup[0].type === 'Biserie' && 'BISERIE'}
                   {currentGroup[0].type === 'Superserie' && 'SUPERSERIE'}
@@ -331,7 +331,7 @@ export const WorkoutView = () => {
               </div>
             )}
             {currentGroup.map((exercise, exerciseIndex) => (
-              <div key={exercise.id} className="animate-slide-in" style={{ animationDelay: `${exerciseIndex * 0.1}s` }}>
+              <div key={exercise.id} className="animate-slide-in" style={{ animationDelay: `${exerciseIndex * 0.05}s` }}>
                 <ExerciseCard
                   exercise={exercise}
                   exerciseIndex={exerciseIndex}
